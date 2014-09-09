@@ -85,6 +85,10 @@
                 o = this.options,
                 el = this.element;
 
+            if(!el.data) {
+                return false;
+            }
+
             // Create variables for any existing or not existing
             // scroller elements on the page.
             el.data("scrollWrapper", el.find("." + o.scrollWrapperClass));
@@ -494,6 +498,9 @@
                 if (value === true) {
                     self._showHideHotSpots();
                 } else {
+                    if(!el.data) {
+                        return false;
+                    }
                     el.data("scrollingHotSpotLeft").hide();
                     el.data("scrollingHotSpotRight").hide();
                 }
@@ -579,6 +586,10 @@
             var self = this,
                 el = this.element,
                 o = this.options;
+
+            if(!el.data) {
+                return false;
+            }
 
             // Hot spot scrolling is not enabled so show no hot spots
             if (!(o.hotSpotScrolling)) {

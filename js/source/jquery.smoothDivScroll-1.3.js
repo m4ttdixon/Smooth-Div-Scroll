@@ -26,7 +26,7 @@
    Download the latest version at https://github.com/davetayls/jquery.kinetic
  *
  */
-(function($) {
+ (function($) {
 
     $.widget("thomaskahn.smoothDivScroll", {
         // Default options
@@ -82,8 +82,8 @@
         },
         _create: function() {
             var self = this,
-                o = this.options,
-                el = this.element;
+            o = this.options,
+            el = this.element;
 
             if(!el.data) {
                 return false;
@@ -430,29 +430,29 @@
 
                     switch (o.visibleHotSpotBackgrounds) {
                         case "always":
-                            self.showHotSpotBackgrounds();
-                            break;
+                        self.showHotSpotBackgrounds();
+                        break;
                         case "onStart":
-                            self.showHotSpotBackgrounds();
-                            el.data("hideHotSpotBackgroundsInterval", setTimeout(function() {
-                                self.hideHotSpotBackgrounds(250);
-                            }, o.hotSpotsVisibleTime));
-                            break;
+                        self.showHotSpotBackgrounds();
+                        el.data("hideHotSpotBackgroundsInterval", setTimeout(function() {
+                            self.hideHotSpotBackgrounds(250);
+                        }, o.hotSpotsVisibleTime));
+                        break;
                         case "hover":
-                            el.mouseenter(function(event) {
-                                if (o.hotSpotScrolling) {
-                                    event.stopPropagation();
-                                    self.showHotSpotBackgrounds(250);
-                                }
-                            }).mouseleave(function(event) {
-                                if (o.hotSpotScrolling) {
-                                    event.stopPropagation();
-                                    self.hideHotSpotBackgrounds(250);
-                                }
-                            });
-                            break;
+                        el.mouseenter(function(event) {
+                            if (o.hotSpotScrolling) {
+                                event.stopPropagation();
+                                self.showHotSpotBackgrounds(250);
+                            }
+                        }).mouseleave(function(event) {
+                            if (o.hotSpotScrolling) {
+                                event.stopPropagation();
+                                self.hideHotSpotBackgrounds(250);
+                            }
+                        });
+                        break;
                         default:
-                            break;
+                        break;
                     }
                 }
 
@@ -462,7 +462,7 @@
 
             });
 
-        },
+},
         /**********************************************************
 		_init
 		**********************************************************/
@@ -471,7 +471,7 @@
         // This code is run every time the widget is called without arguments
         _init: function() {
             var self = this,
-                el = this.element;
+            el = this.element;
 
             // Recalculate the total width of the elements inside the scrollable area
             self.recalculateScrollableArea();
@@ -487,8 +487,8 @@
 		**********************************************************/
         _setOption: function(key, value) {
             var self = this,
-                o = this.options,
-                el = this.element;
+            o = this.options,
+            el = this.element;
 
             // Update option
             o[key] = value;
@@ -526,8 +526,8 @@
             // Alter the CSS (SmoothDivScroll.css) if you want to customize
             // the look'n'feel of the visible hotspots
             var self = this,
-                el = this.element,
-                o = this.options;
+            el = this.element,
+            o = this.options;
 
             // Fade in the hotspot backgrounds
             if (fadeSpeed !== undefined) {
@@ -557,7 +557,7 @@
         },
         hideHotSpotBackgrounds: function(fadeSpeed) {
             var el = this.element,
-                o = this.options;
+            o = this.options;
 
             // Fade out the hotspot backgrounds
             if (fadeSpeed !== undefined) {
@@ -584,8 +584,8 @@
         // offset of the scrolling
         _showHideHotSpots: function() {
             var self = this,
-                el = this.element,
-                o = this.options;
+            el = this.element,
+            o = this.options;
 
             if(!el.data) {
                 return false;
@@ -599,8 +599,12 @@
 
                 // If the manual continuous scrolling option is set show both
                 if (o.hotSpotScrolling && o.autoScrollingMode !== "always" && el.data("autoScrollingInterval") !== null) {
-                    el.data("scrollingHotSpotLeft").show();
-                    el.data("scrollingHotSpotRight").show();
+                    if(el.data("scrollingHotSpotLeft")) {
+                        el.data("scrollingHotSpotLeft").show();
+                    }
+                    if(el.data("scrollingHotSpotRight")) {
+                        el.data("scrollingHotSpotRight").show();
+                    }
                 }
                 // Autoscrolling not set to always and hotspot scrolling enabled.
                 // Regular hot spot scrolling.
@@ -652,13 +656,13 @@
         // Function for calculating the scroll position of a certain element
         _setElementScrollPosition: function(method, element) {
             var el = this.element,
-                o = this.options,
-                tempScrollPosition = 0;
+            o = this.options,
+            tempScrollPosition = 0;
 
             switch (method) {
                 case "first":
-                    el.data("scrollXPos", 0);
-                    return true;
+                el.data("scrollXPos", 0);
+                return true;
                 case "start":
                     // Check to see if there is a specified start element in the options
                     // and that the element exists in the DOM
@@ -670,10 +674,10 @@
                         }
                     }
                     return false;
-                case "last":
+                    case "last":
                     el.data("scrollXPos", (el.data("scrollableAreaWidth") - el.data("scrollWrapper").innerWidth()));
                     return true;
-                case "number":
+                    case "number":
                     // Check to see that an element number is passed
                     if (!(isNaN(element))) {
                         tempScrollPosition = el.data("scrollableArea").children(o.countOnlyClass).eq(element - 1).position().left;
@@ -681,7 +685,7 @@
                         return true;
                     }
                     return false;
-                case "id":
+                    case "id":
                     // Check that an element id is passed and that the element exists in the DOM
                     if (element.length > 0) {
                         if (el.data("scrollableArea").has("#" + element)) {
@@ -691,17 +695,17 @@
                         }
                     }
                     return false;
-                default:
+                    default:
                     return false;
-            }
+                }
 
-        },
+            },
         /**********************************************************
 		Jumping to a certain element
 		**********************************************************/
         jumpToElement: function(jumpTo, element) {
             var self = this,
-                el = this.element;
+            el = this.element;
 
             // Check to see that the scroller is enabled
             if (el.data("enabled")) {
@@ -714,26 +718,26 @@
                     // Trigger the right callback
                     switch (jumpTo) {
                         case "first":
-                            self._trigger("jumpedToFirstElement");
-                            break;
+                        self._trigger("jumpedToFirstElement");
+                        break;
                         case "start":
-                            self._trigger("jumpedToStartElement");
-                            break;
+                        self._trigger("jumpedToStartElement");
+                        break;
                         case "last":
-                            self._trigger("jumpedToLastElement");
-                            break;
+                        self._trigger("jumpedToLastElement");
+                        break;
                         case "number":
-                            self._trigger("jumpedToElementNumber", null, {
-                                "elementNumber": element
-                            });
-                            break;
+                        self._trigger("jumpedToElementNumber", null, {
+                            "elementNumber": element
+                        });
+                        break;
                         case "id":
-                            self._trigger("jumpedToElementId", null, {
-                                "elementId": element
-                            });
-                            break;
+                        self._trigger("jumpedToElementId", null, {
+                            "elementId": element
+                        });
+                        break;
                         default:
-                            break;
+                        break;
                     }
 
                 }
@@ -744,9 +748,9 @@
 		**********************************************************/
         scrollToElement: function(scrollTo, element) {
             var self = this,
-                el = this.element,
-                o = this.options,
-                autoscrollingWasRunning = false;
+            el = this.element,
+            o = this.options,
+            autoscrollingWasRunning = false;
 
             if (el.data("enabled")) {
                 // Get the position of the element to scroll to
@@ -778,37 +782,37 @@
                             // Trigger the right callback
                             switch (scrollTo) {
                                 case "first":
-                                    self._trigger("scrolledToFirstElement");
-                                    break;
+                                self._trigger("scrolledToFirstElement");
+                                break;
                                 case "start":
-                                    self._trigger("scrolledToStartElement");
-                                    break;
+                                self._trigger("scrolledToStartElement");
+                                break;
                                 case "last":
-                                    self._trigger("scrolledToLastElement");
-                                    break;
+                                self._trigger("scrolledToLastElement");
+                                break;
                                 case "number":
-                                    self._trigger("scrolledToElementNumber", null, {
-                                        "elementNumber": element
-                                    });
-                                    break;
+                                self._trigger("scrolledToElementNumber", null, {
+                                    "elementNumber": element
+                                });
+                                break;
                                 case "id":
-                                    self._trigger("scrolledToElementId", null, {
-                                        "elementId": element
-                                    });
-                                    break;
+                                self._trigger("scrolledToElementId", null, {
+                                    "elementId": element
+                                });
+                                break;
                                 default:
-                                    break;
+                                break;
                             }
                         }
                     });
-                }
-            }
+}
+}
 
-        },
-        move: function(pixels) {
-            var self = this,
-                el = this.element,
-                o = this.options;
+},
+move: function(pixels) {
+    var self = this,
+    el = this.element,
+    o = this.options;
             // clear queue, move to end
             el.data("scrollWrapper").stop(true, true);
 
@@ -891,7 +895,7 @@
 		*/
         getFlickrContent: function(content, manipulationMethod) {
             var self = this,
-                el = this.element;
+            el = this.element;
 
             $.getJSON(content, function(data) {
                 // small square - size is 75x75
@@ -974,15 +978,15 @@
                                     // Add the loaded content first in the scrollable area
                                     el.data("scrollableArea").children(":first").before(loadedFlickrImages);
                                     break;
-                                case "addLast":
+                                    case "addLast":
                                     // Add the loaded content last in the scrollable area
                                     el.data("scrollableArea").children(":last").after(loadedFlickrImages);
                                     break;
-                                default:
+                                    default:
                                     // Replace the content in the scrollable area
                                     el.data("scrollableArea").html(loadedFlickrImages);
                                     break;
-                            }
+                                }
 
                             // Recalculate the total width of the elements inside the scrollable area
                             self.recalculateScrollableArea();
@@ -997,7 +1001,7 @@
                         }
 
                     });
-                }
+}
 
                 // Add the loaded content first or last in the scrollable area
                 function addImageToLoadedImages(imageObj) {
@@ -1025,7 +1029,7 @@
                 }
 
             });
-        },
+},
         /*  Arguments are:
 		content - a valid URL to an AJAX content source - string
 		manipulationMethod - addFirst, addLast or replace (default) - string
@@ -1034,7 +1038,7 @@
 		*/
         getAjaxContent: function(content, manipulationMethod, filterTag) {
             var self = this,
-                el = this.element;
+            el = this.element;
             $.ajaxSetup({
                 cache: false
             });
@@ -1060,15 +1064,15 @@
                         // Add the loaded content first in the scrollable area
                         el.data("scrollableArea").children(":first").before(filteredContent);
                         break;
-                    case "addLast":
+                        case "addLast":
                         // Add the loaded content last in the scrollable area
                         el.data("scrollableArea").children(":last").after(filteredContent);
                         break;
-                    default:
+                        default:
                         // Replace the content in the scrollable area
                         el.data("scrollableArea").html(filteredContent);
                         break;
-                }
+                    }
 
                 // Recalculate the total width of the elements inside the scrollable area
                 self.recalculateScrollableArea();
@@ -1080,10 +1084,10 @@
                 self._trigger("addedAjaxContent");
 
             });
-        },
-        getHtmlContent: function(content, manipulationMethod, filterTag) {
-            var self = this,
-                el = this.element;
+},
+getHtmlContent: function(content, manipulationMethod, filterTag) {
+    var self = this,
+    el = this.element;
 
             // No AJAX involved at all - just add raw HTML-content
             /* Arguments are:
@@ -1111,15 +1115,15 @@
                     // Add the loaded content first in the scrollable area
                     el.data("scrollableArea").children(":first").before(filteredContent);
                     break;
-                case "addLast":
+                    case "addLast":
                     // Add the loaded content last in the scrollable area
                     el.data("scrollableArea").children(":last").after(filteredContent);
                     break;
-                default:
+                    default:
                     // Replace the content in the scrollable area
                     el.data("scrollableArea").html(filteredContent);
                     break;
-            }
+                }
 
             // Recalculate the total width of the elements inside the scrollable area
             self.recalculateScrollableArea();
@@ -1137,9 +1141,9 @@
         recalculateScrollableArea: function() {
 
             var tempScrollableAreaWidth = 0,
-                foundStartAtElement = false,
-                o = this.options,
-                el = this.element;
+            foundStartAtElement = false,
+            o = this.options,
+            el = this.element;
 
             // Add up the total width of all the items inside the scrollable area
             el.data("scrollableArea").children(o.countOnlyClass).each(function() {
@@ -1184,7 +1188,7 @@
 		**********************************************************/
         stopAutoScrolling: function() {
             var self = this,
-                el = this.element;
+            el = this.element;
 
             if (el.data("autoScrollingInterval") !== null) {
                 clearInterval(el.data("autoScrollingInterval"));
@@ -1202,8 +1206,8 @@
 		**********************************************************/
         startAutoScrolling: function() {
             var self = this,
-                el = this.element,
-                o = this.options;
+            el = this.element,
+            o = this.options;
 
             if (el.data("enabled")) {
                 self._showHideHotSpots();
@@ -1234,27 +1238,27 @@
                         switch (o.autoScrollingDirection) {
                             case "right":
 
-                                el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() + o.autoScrollingStep);
-                                if (el.data("previousScrollLeft") === el.data("scrollWrapper").scrollLeft()) {
-                                    self._trigger("autoScrollingRightLimitReached");
-                                    self.stopAutoScrolling();
-                                }
-                                break;
+                            el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() + o.autoScrollingStep);
+                            if (el.data("previousScrollLeft") === el.data("scrollWrapper").scrollLeft()) {
+                                self._trigger("autoScrollingRightLimitReached");
+                                self.stopAutoScrolling();
+                            }
+                            break;
 
                             case "left":
-                                el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() - o.autoScrollingStep);
-                                if (el.data("previousScrollLeft") === el.data("scrollWrapper").scrollLeft()) {
-                                    self._trigger("autoScrollingLeftLimitReached");
-                                    self.stopAutoScrolling();
-                                }
-                                break;
+                            el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() - o.autoScrollingStep);
+                            if (el.data("previousScrollLeft") === el.data("scrollWrapper").scrollLeft()) {
+                                self._trigger("autoScrollingLeftLimitReached");
+                                self.stopAutoScrolling();
+                            }
+                            break;
 
                             case "backAndForth":
-                                if (el.data("pingPongDirection") === "right") {
-                                    el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() + (o.autoScrollingStep));
-                                } else {
-                                    el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() - (o.autoScrollingStep));
-                                }
+                            if (el.data("pingPongDirection") === "right") {
+                                el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() + (o.autoScrollingStep));
+                            } else {
+                                el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() - (o.autoScrollingStep));
+                            }
 
                                 // If the scrollLeft hasnt't changed it means that the scrolling has reached
                                 // the end and the direction should be switched
@@ -1269,34 +1273,34 @@
                                 }
                                 break;
 
-                            case "endlessLoopRight":
+                                case "endlessLoopRight":
 
                                 // Do the auto scrolling
                                 el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() + o.autoScrollingStep);
 
                                 self._checkContinuousSwapRight();
                                 break;
-                            case "endlessLoopLeft":
+                                case "endlessLoopLeft":
 
                                 // Do the auto scrolling
                                 el.data("scrollWrapper").scrollLeft(el.data("scrollWrapper").scrollLeft() - o.autoScrollingStep);
 
                                 self._checkContinuousSwapLeft();
                                 break;
-                            default:
+                                default:
                                 break;
 
+                            }
                         }
-                    }
-                }, o.autoScrollingInterval));
-            }
-        },
+                    }, o.autoScrollingInterval));
+}
+},
         /**********************************************************
 		Check Continuos Swap Right
 		**********************************************************/
         _checkContinuousSwapRight: function() {
             var el = this.element,
-                o = this.options;
+            o = this.options;
 
             // Get the width of the first element. When it has scrolled out of view,
             // the element swapping should be executed. A true/false variable is used
@@ -1330,7 +1334,7 @@
 		**********************************************************/
         _checkContinuousSwapLeft: function() {
             var el = this.element,
-                o = this.options;
+            o = this.options;
 
             // Get the width of the first element. When it has scrolled out of view,
             // the element swapping should be executed. A true/false variable is used
@@ -1361,7 +1365,7 @@
         },
         restoreOriginalElements: function() {
             var self = this,
-                el = this.element;
+            el = this.element;
 
             // Restore the original content of the scrollable area
             el.data("scrollableArea").html(el.data("originalElements"));
@@ -1391,7 +1395,7 @@
         },
         disable: function() {
             var self = this,
-                el = this.element;
+            el = this.element;
 
             // Clear all running intervals
             self.stopAutoScrolling();
@@ -1409,7 +1413,7 @@
         },
         destroy: function() {
             var self = this,
-                el = this.element;
+            el = this.element;
 
             // Clear all running intervals
             self.stopAutoScrolling();
